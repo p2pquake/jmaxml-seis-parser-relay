@@ -16,6 +16,7 @@ import (
 	"github.com/illarion/gonotify"
 	"github.com/p2pquake/jmaxml-seis-parser-go/converter"
 	"github.com/p2pquake/jmaxml-seis-parser-go/jmaseis"
+	"github.com/p2pquake/jmaxml-seis-parser-relay/timestamped"
 	"github.com/spf13/cobra"
 )
 
@@ -173,7 +174,10 @@ func convertJmaSeis(filename string, report *jmaseis.Report) ([]byte, string, er
 			}
 		}
 
-		data, err := json.Marshal(earthquake)
+		withTS := timestamped.JMAQuakeWithTimestamp{JMAQuake: *earthquake}
+		withTS.Timestamp.Convert = time.Now().Format("2006/01/02 15:04:05.999")
+
+		data, err := json.Marshal(withTS)
 		if err != nil {
 			return nil, jmaType, err
 		}
@@ -200,7 +204,10 @@ func convertJmaSeis(filename string, report *jmaseis.Report) ([]byte, string, er
 			}
 		}
 
-		data, err := json.Marshal(tsunami)
+		withTS := timestamped.JMATsunamiWithTimestamp{JMATsunami: *tsunami}
+		withTS.Timestamp.Convert = time.Now().Format("2006/01/02 15:04:05.999")
+
+		data, err := json.Marshal(withTS)
 		if err != nil {
 			return nil, jmaType, err
 		}
@@ -215,7 +222,10 @@ func convertJmaSeis(filename string, report *jmaseis.Report) ([]byte, string, er
 			return nil, jmaType, err
 		}
 
-		data, err := json.Marshal(eew)
+		withTS := timestamped.JMAEEWWithTimestamp{JMAEEW: *eew}
+		withTS.Timestamp.Convert = time.Now().Format("2006/01/02 15:04:05.999")
+
+		data, err := json.Marshal(withTS)
 		if err != nil {
 			return nil, jmaType, err
 		}
