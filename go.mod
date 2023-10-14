@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/illarion/gonotify v1.0.1
-	github.com/p2pquake/jmaxml-seis-parser-go v0.3.0
+	github.com/p2pquake/jmaxml-seis-parser-go v0.3.1
 	github.com/spf13/cobra v1.5.0
 )
 
